@@ -1,13 +1,22 @@
 import test from 'ava';
 import Nightmare from 'nightmare';
 
-test('Page title should be "fake"', async (t) => {
+test('Console shouldn\'t output error or warning logs', async (t) => {
   const nightmare = Nightmare();
+  const errors = [];
+  const warnings = [];
 
-  const res = await nightmare
+  await nightmare
+    .on('console', (type, message) => {
+      if (type==='error')
+        errors.push(message);
+
+      if (type==='warn')
+        warnings.push(message);
+      })
     .goto(process.env.TEST_URL)
-    // eslint-disable-next-line no-undef
-    .evaluate(() => document.title);
+    .end();
 
-  t.is(res, 'fake');
+  t.is(errors.length, 0);
+  t.is(warnings.length, 0);
 });
