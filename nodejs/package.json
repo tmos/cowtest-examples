@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "nightmare": "^2.10.0"
   }
 }
