@@ -20,11 +20,11 @@ test('Console shouldn\'t output error logs', async (t) => {
     .goto(URL)
     .end();
 
-    if (errors.length > 0) {
-      t.fail(errors)
-    } else {
-      t.pass();
-    }
+  if (errors.length > 0) {
+    t.fail(JSON.stringify(errors));
+  } else {
+    t.pass();
+  }
 });
 
 test('Console shouldn\'t output warning logs', async (t) => {
@@ -44,7 +44,7 @@ test('Console shouldn\'t output warning logs', async (t) => {
     .end();
 
   if (warnings.length > 0) {
-    t.fail(warnings)
+    t.fail(JSON.stringify(warning));
   } else {
     t.pass();
   }
@@ -65,8 +65,9 @@ test.serial('Should be validated by the W3C', async (t) => {
 
   const res = await validate(URL);
   if (res.messages.length > 0) {
-    t.fail(res.messages)
+    t.fail(JSON.stringify(res.messages));
   } else {
     t.pass();
   }
+
 });
